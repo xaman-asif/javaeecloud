@@ -1,9 +1,59 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:set var="path" value="${pageContext.request.contextPath}"/>
 <html>
 <head>
-    <title>Title</title>
+    <title>${home}</title>
+    <link rel="stylesheet" type="text/css" href="${path}/resources/css/bootstrap.min.css">
 </head>
 <body>
-<h1>Java EE, Spring and Cloud Training !!!</h1>
+<div class="container">
+    <jsp:include page="/pages/partials/navigation.jsp"/>
+    <div class="container">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Country Name</th>
+                <th scope="col">Continent</th>
+                <th scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach var="country" items="${countries}">
+                <tr>
+                    <td>${country.name}</td>
+                    <td>${country.name}</td>
+                    <td>
+                        <a href="${path}/details?id=<c:out value='${country.countryId}'/> ">Details</a>
+                    </td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+
+                <c:if test="${currentPage > 1}">
+                    <li class="page-item">
+                        <a class="page-link" href="${path}/?page=${currentPage - 1}">Previous</a>
+                    </li>
+                </c:if>
+
+                <c:forEach var="i" begin="1" end="${totalPages}">
+                    <li class="page-item $(i eq currentPage ? 'active': '' ">
+                        <a class="page-link" href="${path}/?page=${i}">${i}</a>
+                    </li>
+                </c:forEach>
+
+                <c:if test="${currentPage < totalPages}">
+                    <li class="page-item">
+                        <a class="page-link" href="${path}/?page=${currentPage +1}">Next</a>
+                    </li>
+                </c:if>
+            </ul>
+        </nav>
+    </div>
+</div>
+<script src="${path}/resources/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

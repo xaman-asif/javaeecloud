@@ -1,13 +1,13 @@
-<user password="sami" roles="manager-gui, manager-script, manager-jmx, manager-status, admin-gui, admin-script" username="sami"/>
+1. To set Tomcat user: <user password="sami" roles="manager-gui, manager-script, manager-jmx, manager-status, admin-gui, admin-script" username="sami"/>
 
-1. mvn archetype:generate \
+2. To generate maven project: mvn archetype:generate \
   -DgroupId=com.javaee \
   -DartifactId=javaee \
   -Dversion=1.0.1 \
   -DarchetypeArtifactId=maven-archetype-webapp \
   -DinteractiveMode=false
 
- 2. mkdir -p src/main/java
+ 3. mkdir -p src/main/java
     mkdir -p src/test/java
 
  . For Linux docker run --name mysql-container \
@@ -20,11 +20,13 @@
          -e MYSQL_ROOT_PASSWORD=arafinN \
          -p 3306:3306 \
          -d mysql:8.0
- 3. docker exec -it mysql-container mysql -u root -p
+ 4. docker exec -it mysql-container mysql -u root -p
 
- 4. CREATE DATABASE javaee;
+ 5. CREATE DATABASE javaee;
 
- 5. CREATE TABLE country (
+ 6. use javaee;
+
+ 6. CREATE TABLE country (
          country_id INT AUTO_INCREMENT PRIMARY KEY,
          name VARCHAR(255) NOT NULL,
          continent VARCHAR(255) NOT NULL
