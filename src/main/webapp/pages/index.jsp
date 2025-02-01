@@ -24,7 +24,9 @@
                     <td>${country.name}</td>
                     <td>${country.name}</td>
                     <td>
-                        <a href="${path}/details?id=<c:out value='${country.countryId}'/> ">Details</a>
+                        <a href="${path}/details?countryId=<c:out value='${country.countryId}'/>">Details</a>
+                        <a href="${path}/update?countryId=<c:out value='${country.countryId}'/>">Update</a>
+                        <a href="${path}/delete?countryId=<c:out value='${country.countryId}'/>">Delete</a>
                     </td>
                 </tr>
             </c:forEach>

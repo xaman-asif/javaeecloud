@@ -34,7 +34,7 @@ public class CountryDAOImpl implements CountryDAO {
     @Override
     public boolean save(Country country) throws SQLException {
         Connection connection = DatabaseConfig.getConnection();
-        String SQL = "INSERT INTO country(country_name, continent) VALUES(?,?)";
+        String SQL = "INSERT INTO country(name, continent) VALUES(?,?)";
         PreparedStatement preparedStatement = connection.prepareStatement(SQL);
         preparedStatement.setString(1, country.getName());
         preparedStatement.setString(2, country.getContinent());
@@ -44,7 +44,7 @@ public class CountryDAOImpl implements CountryDAO {
     @Override
     public boolean update(Country country) throws SQLException {
         Connection connection = DatabaseConfig.getConnection();
-        String SQL = "UPDATE country SET country_name = ?, continent = ? WHERE country_id = ?";
+        String SQL = "UPDATE country SET name = ?, continent = ? WHERE country_id = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(SQL);
         preparedStatement.setString(1, country.getName());
         preparedStatement.setString(2, country.getContinent());
@@ -71,7 +71,7 @@ public class CountryDAOImpl implements CountryDAO {
         ResultSet resultSet = preparedStatement.executeQuery();
         if (resultSet.next()) {
             int countryId = resultSet.getInt("country_id");
-            String name = resultSet.getString("country_name");
+            String name = resultSet.getString("name");
             String continent = resultSet.getString("continent");
             country = new Country(countryId, name, continent);
         }
