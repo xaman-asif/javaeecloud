@@ -7,6 +7,7 @@
   -DarchetypeArtifactId=maven-archetype-webapp \
   -DinteractiveMode=false
 
+
  3. mkdir -p src/main/java
     mkdir -p src/test/java
 
