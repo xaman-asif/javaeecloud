@@ -22,7 +22,7 @@
             <c:forEach var="country" items="${countries}">
                 <tr>
                     <td>${country.name}</td>
-                    <td>${country.name}</td>
+                    <td>${country.continent}</td>
                     <td>
                         <a href="${path}/details?countryId=<c:out value='${country.countryId}'/>">Details</a>
                         <a href="${path}/update?countryId=<c:out value='${country.countryId}'/>">Update</a>
