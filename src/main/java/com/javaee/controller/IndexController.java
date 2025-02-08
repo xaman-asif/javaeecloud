@@ -35,6 +35,7 @@ public class IndexController extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int page = 1;
+        String search = request.getParameter("search") != null ? request.getParameter("search") : "";
         if (request.getParameter("page") != null) {
             page = Integer.parseInt(request.getParameter("page"));
         }
@@ -42,12 +43,13 @@ public class IndexController extends HttpServlet {
         try {
             int recordsPerPage = 5;
             int offset = (page - 1) * recordsPerPage;
-            List<Country> countries = countryService.findAll(offset, recordsPerPage);
+            List<Country> countries = countryService.findAll(search, offset, recordsPerPage);
             int totalCountries = countryService.count();
             int totalPages = (int) Math.ceil((double) totalCountries / recordsPerPage);
             request.setAttribute("countries", countries);
             request.setAttribute("totalPages", totalPages);
             request.setAttribute("currentPage", page);
+            request.setAttribute("search", search);
         } catch (Exception exception) {
             exception.printStackTrace();
         }

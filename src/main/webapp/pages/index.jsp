@@ -9,6 +9,18 @@
 <body>
 <div class="container">
     <jsp:include page="/pages/partials/navigation.jsp"/>
+
+    <div class="col-12">
+        <form action="${path}/" method="get" class="col-4" style="margin-top: 5px">
+            <div class="input-group">
+                <input type="text" name="search" placeholder="Search by country name or continent"
+                       value="${search}"
+                       class="form-control"/>
+                <button type="submit" class="btn btn-primary">Search</button>
+            </div>
+        </form>
+    </div>
+
     <div class="container">
         <table class="table">
             <thead>

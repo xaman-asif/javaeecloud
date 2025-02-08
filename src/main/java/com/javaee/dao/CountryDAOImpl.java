@@ -13,13 +13,15 @@ import java.util.List;
 public class CountryDAOImpl implements CountryDAO {
 
     @Override
-    public List<Country> findAll(int offset, int recordPerPage) throws SQLException {
+    public List<Country> findAll(String search, int offset, int recordPerPage) throws SQLException {
         List<Country> countries = new ArrayList<Country>();
         Connection connection = DatabaseConfig.getConnection();
-        String SQL = "SELECT * FROM country ORDER BY country_id ASC LIMIT ?,?";
+        String SQL = "SELECT * FROM country WHERE name LIKE ? OR continent LIKE ? ORDER BY country_id ASC LIMIT ?,?";
         PreparedStatement preparedStatement = connection.prepareStatement(SQL);
-        preparedStatement.setInt(1, offset);
-        preparedStatement.setInt(2, recordPerPage);
+        preparedStatement.setString(1, "%" + search + "%");
+        preparedStatement.setString(2, "%" + search + "%");
+        preparedStatement.setInt(3, offset);
+        preparedStatement.setInt(4, recordPerPage);
         ResultSet resultSet = preparedStatement.executeQuery();
         while (resultSet.next()) {
             Country country = new Country();

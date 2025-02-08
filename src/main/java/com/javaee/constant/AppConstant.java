@@ -5,7 +5,6 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class AppConstant {
-
     public static final String DRIVER = "com.mysql.cj.jdbc.Driver";
     public static final String USER = "root";
     public static final String PASSWORD = "arafinN";
