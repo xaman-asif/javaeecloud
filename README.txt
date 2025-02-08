@@ -16,6 +16,9 @@
         -e MYSQL_ROOT_PASSWORD=arafinN \
         -d mysql:8.0
 
+   For Windows docker
+        docker run --name mysql-container -p 3306:3306 -e MYSQL_ROOT_PASSWORD=arafinN -d mysql:8.0
+
      For Mac
      docker run --name mysql-container \
          -e MYSQL_ROOT_PASSWORD=arafinN \
