@@ -1,13 +1,35 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<c:set var="path" value="${pageContext.request.contextPath}" />
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:set var="path" value="${pageContext.request.contextPath}"/>
 <html>
 <head>
-  <title>${details}</title>
-  <link rel="stylesheet" type="text/css" href="${path}/resources/css/bootstrap.min.css">
+    <title>${details}</title>
+    <link rel="stylesheet" type="text/css" href="${path}/resources/css/bootstrap.min.css">
+    <script src="${path}/resources/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-<h1>I am from Details Page</h1>
-<script src="${path}/resources/js/bootstrap.bundle.min.js"></script>
+<div class="container">
+    <jsp:include page="partials/navigation.jsp"/>
+    <div class="container">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Country Name</th>
+                <th scope="col">Continent</th>
+                <th scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>${country.name}</td>
+              <td>${country.continent}</td>
+              <td>
+                <a href="${path}/update?countryId=<c:out value='${country.countryId}'/>">Edit</a>
+              </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 </body>
 </html>

@@ -1,5 +1,10 @@
 package com.javaee.controller;
 
+import com.javaee.dao.CountryDAO;
+import com.javaee.dao.CountryDAOImpl;
+import com.javaee.entity.Country;
+import com.javaee.service.CountryService;
+import com.javaee.service.CountryServiceImpl;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -14,7 +19,17 @@ public class CreateController extends HttpServlet {
   @Serial
   private static final long serialVersionUID = 1L;
 
+  private CountryService countryService;
+
   public CreateController() {
+  }
+
+  @Override
+  public void init() throws ServletException {
+    CountryDAO countryDAO = new CountryDAOImpl();
+    countryService = new CountryServiceImpl(
+        countryDAO
+    );
   }
 
   @Override
@@ -22,5 +37,19 @@ public class CreateController extends HttpServlet {
     request.setAttribute("save", "Save Page");
     RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/create.jsp");
     dispatcher.forward(request, response);
+  }
+
+  @Override
+  protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    try {
+      Country country =
+          Country.builder().name(request.getParameter("name")).continent(request.getParameter("continent")).build();
+
+      countryService.save(country);
+    } catch (Exception exception) {
+      exception.printStackTrace();
+    }
+
+    response.sendRedirect("/");
   }
 }

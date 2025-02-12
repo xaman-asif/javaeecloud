@@ -33,6 +33,7 @@ public class IndexController extends HttpServlet {
         this.countryService = new CountryServiceImpl(countryDAO);
     }
 
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int page = 1;
 
