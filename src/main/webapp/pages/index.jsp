@@ -11,6 +11,16 @@
 <body>
 <div class="container">
     <jsp:include page="/pages/partials/navigation.jsp"></jsp:include>
+
+    <div class="col-12">
+        <form action="${path}/" method="get" class="col-4">
+            <div class="input-group">
+                <input type="text" name="search" placeholder="Search by name or continent" class="form-control" value="${search}">
+                <button type="submit" class="btm btn-primary">Search</button>
+            </div>
+        </form>
+    </div>
+
     <div class="container">
         <table class="table">
             <thead>

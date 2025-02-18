@@ -13,8 +13,8 @@ public class CountryServiceImpl implements CountryService {
     private final CountryDAO countryDAO;
 
     @Override
-    public List<Country> findAll(int offset, int recordPerPage) throws SQLException {
-        return countryDAO.findAll(offset, recordPerPage);
+    public List<Country> findAll(String search, int offset, int recordPerPage) throws SQLException {
+        return countryDAO.findAll(search, offset, recordPerPage);
     }
 
     @Override

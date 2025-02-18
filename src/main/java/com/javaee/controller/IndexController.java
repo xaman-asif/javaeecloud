@@ -19,48 +19,50 @@ import java.util.List;
 @WebServlet({"/", "/home", "/index"})
 public class IndexController extends HttpServlet {
 
-    @Serial
-    private static final long serialVersionUID = 1L;
+  @Serial
+  private static final long serialVersionUID = 1L;
 
-    public IndexController() {
+  public IndexController() {
+  }
+
+  private CountryService countryService;
+
+  @Override
+  public void init() throws ServletException {
+    CountryDAO countryDAO = new CountryDAOImpl();
+    this.countryService = new CountryServiceImpl(countryDAO);
+  }
+
+  @Override
+  protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    int page = 1;
+    String search = request.getParameter("search") != null ? request.getParameter("search") : "";
+
+    if (request.getParameter("page") != null) {
+      page = Integer.parseInt(request.getParameter("page"));
     }
 
-    private CountryService countryService;
+    try {
+      int recordsPerPage = 5;
+      int offset = (page - 1) * recordsPerPage;
 
-    @Override
-    public void init() throws ServletException {
-        CountryDAO countryDAO = new CountryDAOImpl();
-        this.countryService = new CountryServiceImpl(countryDAO);
+      List<Country> countries = countryService.findAll(search, offset, recordsPerPage);
+
+      int totalCountries = countryService.count();
+
+      int totalPages = (int) Math.ceil((double) totalCountries / recordsPerPage);
+
+      request.setAttribute("countries", countries);
+      request.setAttribute("totalPages", totalPages);
+      request.setAttribute("currentPage", page);
+      request.setAttribute("search", search);
+    } catch (Exception exception) {
+      exception.printStackTrace();
     }
 
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int page = 1;
+    request.setAttribute("home", "Home Page");
 
-        if (request.getParameter("page") != null) {
-            page = Integer.parseInt(request.getParameter("page"));
-        }
-
-        try {
-            int recordsPerPage = 5;
-            int offset = (page - 1) * recordsPerPage;
-
-            List<Country> countries = countryService.findAll(offset, recordsPerPage);
-
-            int totalCountries = countryService.count();
-
-            int totalPages = (int) Math.ceil((double) totalCountries/recordsPerPage);
-
-            request.setAttribute("countries", countries);
-            request.setAttribute("totalPages", totalPages);
-            request.setAttribute("currentPage", page);
-        } catch (Exception exception) {
-            exception.printStackTrace();
-        }
-
-        request.setAttribute("home", "Home Page");
-
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/index.jsp");
-        dispatcher.forward(request, response);
-    }
+    RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/index.jsp");
+    dispatcher.forward(request, response);
+  }
 }

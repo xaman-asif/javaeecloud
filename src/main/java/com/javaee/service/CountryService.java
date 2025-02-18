@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface CountryService {
 
-    List<Country> findAll(int offset, int recordPerPage) throws SQLException;
+    List<Country> findAll(String search, int offset, int recordPerPage) throws SQLException;
 
     boolean save(Country country) throws SQLException;
 

@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface CountryDAO {
-    List<Country> findAll(int offset, int recordPerPage) throws SQLException;
+    List<Country> findAll(String search, int offset, int recordPerPage) throws SQLException;
 
     boolean save(Country country) throws SQLException;
 
