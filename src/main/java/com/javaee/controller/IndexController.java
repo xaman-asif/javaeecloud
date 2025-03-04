@@ -11,7 +11,6 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
 import java.io.IOException;
 import java.io.Serial;
 import java.util.List;
@@ -21,11 +20,10 @@ public class IndexController extends HttpServlet {
 
   @Serial
   private static final long serialVersionUID = 1L;
+  private CountryService countryService;
 
   public IndexController() {
   }
-
-  private CountryService countryService;
 
   @Override
   public void init() throws ServletException {
@@ -48,7 +46,7 @@ public class IndexController extends HttpServlet {
 
       List<Country> countries = countryService.findAll(search, offset, recordsPerPage);
 
-      int totalCountries = countryService.count();
+      int totalCountries = countryService.count(search);
 
       int totalPages = (int) Math.ceil((double) totalCountries / recordsPerPage);
 
